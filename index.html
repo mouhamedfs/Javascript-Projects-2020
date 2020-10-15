@@ -1,97 +1,137 @@
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="static/css/style.css" />
     <title>Javascript on steroid</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container-1">
-    <h2>Challenge 1 : Your age in Days</h2>
-        <div class="flex-box-container-1">
-            <div>
-                <button class="btn btn-primary" onclick="ageInDays()">CLick Me</button>
-            </div>
-            <div>
-                <button class="btn btn-danger" onclick="reset()">Reset</button>
-            </div>
+      <h2>Challenge 1 : Your age in Days</h2>
+      <div class="flex-box-container-1">
+        <div>
+          <button class="btn btn-primary" onclick="ageInDays()">
+            CLick Me
+          </button>
         </div>
-        <div class="flex-box-container-1">
-            <div id="flex-box-result">
-            </div>
+        <div>
+          <button class="btn btn-danger" onclick="reset()">Reset</button>
         </div>
+      </div>
+      <div class="flex-box-container-1">
+        <div id="flex-box-result"></div>
+      </div>
     </div>
-
     <div class="container-2">
-        <h2>Challenge 2 : Cat Generator</h2>
-        <button class="btn btn-success" id="cat-generator" onclick="catGenerator()">Generate Cat</button>
-        <div class="flex-box-container-2" id="flex-cat-gen">
-        </div>
+      <h2>Challenge 2 : Cat Generator</h2>
+      <button
+        class="btn btn-success"
+        id="cat-generator"
+        onclick="catGenerator()"
+      >
+        Generate Cat
+      </button>
+      <div class="flex-box-container-2" id="flex-cat-gen"></div>
     </div>
 
     <div class="container-3">
-        <h2>CHallenge 3: Pierre,Papiers,sciseaux</h2>
-        <div class="flex-box-rps" id="flex-box-rps-div">
-            <img id="rock" src="http://images.clipartpanda.com/rock-clipart-clipart-harvestable-resources-rock.png" width="150" height="150" alt="" onclick="rpsGame(this)">
-            <img id="paper"src= "http://images.clipartpanda.com/paper-clip-art-niEBBqMiA.svg" width="150" height="150" alt="" onclick="rpsGame(this)">
-            <img id="scissors"src= "http://images.clipartpanda.com/scissors-clipart-scissors.svg" width="150" height="150" alt="" onclick="rpsGame(this)">
-        </div>
+      <h2>CHallenge 3: Pierre,Papiers,sciseaux</h2>
+      <div class="flex-box-rps" id="flex-box-rps-div">
+        <img
+          id="rock"
+          src="http://images.clipartpanda.com/rock-clipart-clipart-harvestable-resources-rock.png"
+          width="150"
+          height="150"
+          alt=""
+          onclick="rpsGame(this)"
+        />
+        <img
+          id="paper"
+          src="http://images.clipartpanda.com/paper-clip-art-niEBBqMiA.svg"
+          width="150"
+          height="150"
+          alt=""
+          onclick="rpsGame(this)"
+        />
+        <img
+          id="scissors"
+          src="http://images.clipartpanda.com/scissors-clipart-scissors.svg"
+          width="150"
+          height="150"
+          alt=""
+          onclick="rpsGame(this)"
+        />
+      </div>
     </div>
     <div class="container-4">
-        <h2 id="color-changed">Challenge 4 :Change color of all buttons</h2>
-        <div class="flex-box-pick-color">
-            <form action="">
-                <select name="backdrop" id="background" onchange="buttonColorChange(this)">
-                    <option value="random">Random</option>
-                    <option value="red">Red</option>
-                    <option value="green">Green</option>
-                    <option value="reset">Reset</option>
-                </select>
-            </form>
-            <button class="btn btn-primary">Wee!</button>
-            <button class="btn btn-danger">Yahoo!</button>
-            <button class="btn btn-warning">Google!</button>
-            <button class="btn btn-success">Facebook!</button>
-        </div>
+      <h2 id="color-changed">Challenge 4 :Change color of all buttons</h2>
+      <div class="flex-box-pick-color">
+        <form action="">
+          <select
+            name="backdrop"
+            id="background"
+            onchange="buttonColorChange(this)"
+          >
+            <option value="random">Random</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="reset">Reset</option>
+          </select>
+        </form>
+        <button class="btn btn-primary">Wee!</button>
+        <button class="btn btn-danger">Yahoo!</button>
+        <button class="btn btn-warning">Google!</button>
+        <button class="btn btn-success">Facebook!</button>
+      </div>
     </div>
     <div class="container-5">
-        <h2>Challenge 5:Blackjack</h2>
-        <h3><span id="blackjack-result">Let's Play</span></h3>
+      <h2>Challenge 5:Blackjack</h2>
+      <h3><span id="blackjack-result">Let's Play</span></h3>
 
-        <div class="flex-blackjack-row-1">
-            <div id="your-box">
-                <h2>You: <span id="your-blackjack-result">0</span></h2>
-            </div>
-            <div id="dealer-box">
-                <h2>Dealer: <span id="dealer-blackjack-result">0</span></h2>
-            </div>
+      <div class="flex-blackjack-row-1">
+        <div id="your-box">
+          <h2>You: <span id="your-blackjack-result">0</span></h2>
         </div>
-        <div class="flex-blackjack-row-2">
-            <div>
-                <button class="btn-lg btn-primary mr-2" id="blackjack-hit-button">Hit</button>
-                <button class="btn-lg btn-warning mr-2" id="blackjack-stand-button">Stand</button>
-                <button class="btn-lg btn-danger mr-2" id="blackjack-deal-button">Deal</button>
-            </div>
+        <div id="dealer-box">
+          <h2>Dealer: <span id="dealer-blackjack-result">0</span></h2>
         </div>
-        <div class="flex-blackjack-row-3">
-            <table>
-                <tr>
-                    <th>Win</th>
-                    <th>Losses</th>
-                    <th>Draws</th>
-                </tr>
-                <tr>
-                    <td><span id="wins">0</span></td>
-                    <td><span id="losses">0</span></td>
-                    <td><span id="draws">0</span></td>
-                </tr>
-
-            </table>
+      </div>
+      <div class="flex-blackjack-row-2">
+        <div>
+          <button class="btn-lg btn-primary mr-2" id="blackjack-hit-button">
+            Hit
+          </button>
+          <button class="btn-lg btn-warning mr-2" id="blackjack-stand-button">
+            Stand
+          </button>
+          <button class="btn-lg btn-danger mr-2" id="blackjack-deal-button">
+            Deal
+          </button>
         </div>
+      </div>
+      <div class="flex-blackjack-row-3">
+        <table>
+          <tr>
+            <th>Win</th>
+            <th>Losses</th>
+            <th>Draws</th>
+          </tr>
+          <tr>
+            <td><span id="wins">0</span></td>
+            <td><span id="losses">0</span></td>
+            <td><span id="draws">0</span></td>
+          </tr>
+        </table>
+      </div>
     </div>
     <script src="static/js/script.js"></script>
-</body>
+  </body>
 </html>
