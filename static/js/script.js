@@ -157,6 +157,8 @@ let blackjackGame  =
     'wins':0,
     'losses':0,
     'draws':0,
+    'isStand': false,
+    'turnsOver':false,
 };
 
 const YOU = blackjackGame['you']
@@ -171,10 +173,14 @@ document.querySelector('#blackjack-stand-button').addEventListener('click',deale
 document.querySelector('#blackjack-deal-button').addEventListener('click',blackjackDeal);
 
 function blackjackHit() {
-    let cards = randomCards();
-    showCard(cards,YOU);
-    updateScore(cards,YOU);
-    showScore(YOU);
+    if(blackjackGame['isStand'] === false)
+    {
+        let cards = randomCards();
+        showCard(cards,YOU);
+        updateScore(cards,YOU);
+        showScore(YOU);
+
+    }
 }
 
 function showCard(card,activePlayer) {
@@ -192,26 +198,30 @@ function randomCards(params) {
 }
 
 function blackjackDeal(params) {
-    let yourImage = document.querySelector('#your-box').querySelectorAll('img');
-    let dealerImage = document.querySelector('#dealer-box').querySelectorAll('img');
-    for (let i = 0;i< yourImage.length; i++)
-            yourImage[i].remove();   
-    for (let i = 0;i< dealerImage.length; i++)
-            dealerImage[i].remove();   
-    YOU['score'] = 0;
-    DEALER['score'] = 0;
-    document.querySelector('#your-blackjack-result').textContent = 0;
-    document.querySelector('#dealer-blackjack-result').textContent = 0;
 
-    document.querySelector('#your-blackjack-result').style.color = '#ffffff';
-    document.querySelector('#dealer-blackjack-result').style.color =  '#ffffff';
+    if(blackjackGame['turnsOver'] === true)
+    {
+        blackjackGame['isStand'] = false;
+        let yourImage = document.querySelector('#your-box').querySelectorAll('img');
+        let dealerImage = document.querySelector('#dealer-box').querySelectorAll('img');
+        for (let i = 0;i< yourImage.length; i++)
+                yourImage[i].remove();   
+        for (let i = 0;i< dealerImage.length; i++)
+                dealerImage[i].remove();   
+        YOU['score'] = 0;
+        DEALER['score'] = 0;
+        document.querySelector('#your-blackjack-result').textContent = 0;
+        document.querySelector('#dealer-blackjack-result').textContent = 0;
 
-    document.querySelector('#blackjack-result').textContent = "Let's Play";
-    document.querySelector('#blackjack-result').style.color = 'black';
+        document.querySelector('#your-blackjack-result').style.color = '#ffffff';
+        document.querySelector('#dealer-blackjack-result').style.color =  '#ffffff';
 
+        document.querySelector('#blackjack-result').textContent = "Let's Play";
+        document.querySelector('#blackjack-result').style.color = 'black';
 
-    
+        blackjackGame['turnsOver'] = true;
     }
+}
 
 
 function updateScore(card,activePlayer) {
@@ -241,18 +251,23 @@ function showScore(activePlayer) {
         document.querySelector(activePlayer['scoreSpan']).textContent = activePlayer['score'];
     }
 }
-function dealerLogic(params) {
-    let cards = randomCards();
-    showCard(cards,DEALER);
-    updateScore(cards,DEALER);
-    showScore(DEALER);
-
-    if(DEALER['score']>15)
+function sleep(ms) {
+    return new Promise(resolve =>setTimeout(resolve,ms));
+}
+async function dealerLogic(params) {
+    blackjackGame['isStand'] = true;
+    while (DEALER['score'] <16 && blackjackGame['isStand'] === true )
     {
+        let cards = randomCards();
+        showCard(cards,DEALER);
+        updateScore(cards,DEALER);
+        showScore(DEALER);
+        await sleep(1000);
+    }
+        blackjackGame['turnsOver'] = true;
         let winner = computeWinner();
         showResult(winner);
     }
-}
 
 function computeWinner(params) {
     let winner;
@@ -287,26 +302,50 @@ function computeWinner(params) {
 
 function showResult(winner) {
     let message,messageColor;
-    if(winner === YOU)
+
+    if(blackjackGame['turnsOver'] === true)
     {
-        document.querySelector('#wins').textContent = blackjackGame['wins'];
-        message = 'You win !';
-        messageColor = 'green';
-        winSound.play();
+            if(winner === YOU)
+        {
+            document.querySelector('#wins').textContent = blackjackGame['wins'];
+            message = 'You win !';
+            messageColor = 'green';
+            winSound.play();
+        }
+        else if (winner === DEALER)
+        {
+            document.querySelector('#losses').textContent = blackjackGame['losses'];
+            message = 'You Lost';
+            messageColor = 'red';
+            lossSound.play();
+        }
+        else  
+        {
+            document.querySelector('#draws').textContent = blackjackGame['draws'];
+            message = 'You drew';
+            messageColor = 'black';
+        }
+        document.querySelector('#blackjack-result').textContent = message;
+        document.querySelector('#blackjack-result').style.color = messageColor;
     }
-    else if (winner === DEALER)
-    {
-        document.querySelector('#losses').textContent = blackjackGame['losses'];
-        message = 'You Lost';
-        messageColor = 'red';
-        lossSound.play();
-    }
-    else  
-    {
-        document.querySelector('#draws').textContent = blackjackGame['draws'];
-        message = 'You drew';
-        messageColor = 'black';
-    }
-    document.querySelector('#blackjack-result').textContent = message;
-    document.querySelector('#blackjack-result').style.color = messageColor;
 }
+
+//Challenge 7 :Ajax & Api with Javascript
+
+const url = 'https://randomuser.me/api?result=10';
+fetch(url)
+    .then(resp => resp.json())
+    .then(data => {
+        let authors = data.results;
+        console.log(authors);
+        for (let i = 0; i < authors.length; i++) {
+            let div = document.createElement('div');
+            let image = document.createElement('img');
+            let p  = document.createElement('p');
+            p.appendChild(document.createTextNode(`$title(authors[i].name.first)} $(title(authors[1].name.last)}`));
+            image.src = authors[1].picture.large;
+            div.appendChild(image);
+            div.appendChild(p);
+            document.querySelector('.container-6.flex-ajax-row-1').appendChild(div);
+        }
+    });
